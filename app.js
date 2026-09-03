@@ -26,9 +26,9 @@ function displayMessage(text, sender) {
 
 // জেমিনি এপিআই কানেকশন
 async function getAIResponse(userText) {
-    const apiKey = "AQ.Ab8RN6L84sePTDwZsYzJXX50RAFqbgYAwHRafKPgCnVoKOE0eQ"; 
+    const apiKey = "AQ.Ab8RN6Ic2AGhgkBp8gqfvER6OS2L1iD3_5y9zBPTkcVBBfkpmg"; 
     
-    // আপডেট ও সঠিক জেমিনি মডেল এন্ডপ পয়েন্ট
+    // আপডেট ও সঠিক জেমিনি মডেল এন্ডপয়েন্ট
     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
     const prompt = `You are AL Messenger AI, a smart assistant created by Ashraful Molla (আশরাফুল মোল্লা). Answer this user query naturally in Bengali/English: ${userText}`;
@@ -42,7 +42,7 @@ async function getAIResponse(userText) {
             })
         });
 
-        let data = v = await response.json();
+        let data = await response.json();
         
         if (data.candidates && data.candidates[0].content.parts[0].text) {
             let botReply = data.candidates[0].content.parts[0].text;
@@ -74,5 +74,4 @@ function loadMessages() {
 function clearChat() {
     localStorage.removeItem("chatMessages");
     document.getElementById("chatBox").innerHTML = "";
-    }
-                            
+                            }
