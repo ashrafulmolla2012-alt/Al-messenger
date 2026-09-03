@@ -1,4 +1,3 @@
-// পেজ লোড হলে সেভ থাকা মেসেজগুলো দেখানো
 document.addEventListener("DOMContentLoaded", loadMessages);
 
 function sendMsg() {
@@ -9,8 +8,6 @@ function sendMsg() {
         displayMessage(messageText, "user");
         saveMessage(messageText, "user");
         input.value = "";
-
-        // জেমিনি এপিআই কল করা
         getAIResponse(messageText);
     }
 }
@@ -24,11 +21,9 @@ function displayMessage(text, sender) {
     chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-// জেমিনি এপিআই কানেকশন
 async function getAIResponse(userText) {
-    const apiKey = "AQ.Ab8RN6Ic2AGhgkBp8gqfvER6OS2L1iD3_5y9zBPTkcVBBfkpmg"; 
+    const apiKey = "AQ.Ab8RN6KG1RYWlUJkVn8LSBZ8HJ2V9X3FdUcMyDpSM8S3RnJIEA"; 
     
-    // আপডেট ও সঠিক জেমিনি মডেল এন্ডপয়েন্ট
     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
     const prompt = `You are AL Messenger AI, a smart assistant created by Ashraful Molla (আশরাফুল মোল্লা). Answer this user query naturally in Bengali/English: ${userText}`;
@@ -57,21 +52,18 @@ async function getAIResponse(userText) {
     }
 }
 
-// মেসেজ সেভ করে রাখার ফাংশন
 function saveMessage(text, sender) {
     let messages = JSON.parse(localStorage.getItem("chatMessages")) || [];
     messages.push({ text, sender });
     localStorage.setItem("chatMessages", JSON.stringify(messages));
 }
 
-// আগে সেভ হওয়া মেসেজ লোড করা
 function loadMessages() {
     let messages = JSON.parse(localStorage.getItem("chatMessages")) || [];
     messages.forEach(msg => displayMessage(msg.text, msg.sender));
 }
 
-// চ্যাট ক্লিয়ার বা ডিলিট করার ফাংশন
 function clearChat() {
     localStorage.removeItem("chatMessages");
     document.getElementById("chatBox").innerHTML = "";
-                            }
+}
