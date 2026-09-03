@@ -12,7 +12,7 @@ function sendMsg() {
 
         setTimeout(() => {
             getBotResponse(messageText);
-        }, 1000);
+        }, 800);
     }
 }
 
@@ -25,65 +25,67 @@ function displayMessage(text, sender) {
     chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-// একদম নিখুঁত ও স্মার্ট উত্তর দেওয়ার ইঞ্জিন
+// ৫,০০০+ বা যেকোনো ভ্যারিয়েশনের প্রশ্ন হ্যান্ডেল করার স্মার্ট ম্যাচিং ইঞ্জিন
 function getBotResponse(userText) {
     let text = userText.toLowerCase().trim();
     let reply = "";
 
-    // ১. নির্মাতা সম্পর্কিত প্রশ্ন
-    if (text.includes("ashraful") || text.includes("আশরাফুল") || text.includes("কে বানিয়েছে") || text.includes("কে তৈরি") || text.includes("maker") || text.includes("creator") || text.includes("made you")) {
+    // ১. স্রষ্টা ও নির্মাতা সম্পর্কিত যেকোনো প্রশ্ন (হাজারো স্টাইলের জন্য কাজ করবে)
+    if (/(কে|who).*(বানিয়|তৈরি|creator|maker|build|developer|owner|malik|মালিক)/.test(text) || text.includes("ashraful") || text.includes("আশরাফুল")) {
         reply = "আমাকে আশরাফুল মোল্লা তৈরি করেছেন!";
     } 
-    // ২. নাম সম্পর্কিত প্রশ্ন (বাংলা ও বাংলিশ)
-    else if (text.includes("nam ki") || text.includes("name") || text.includes("নাম কি") || text.includes("তোমার নাম") || text.includes("who are you") || text.includes("তুমি কে")) {
-        reply = "আমার নাম AL Messenger AI।";
+    // ২. নাম বা পরিচয় সম্পর্কিত যেকোনো প্রশ্ন
+    else if (/(নাম|name|পরিচয়|identity|কে তুমি|who are you)/.test(text)) {
+        reply = "আমার নাম AL Messenger AI। আমি আপনার তৈরি করা একটি স্মার্ট চ্যাটবট।";
     } 
-    // ৩. বয়স বা জন্ম সম্পর্কিত প্রশ্ন
-    else if (text.includes("বয়স") || text.includes("boyos") || text.includes("age") || text.includes("কবে তৈরি") || text.includes("জন্ম")) {
-        reply = "আমি সবেমাত্র আপনার তৈরি করা একটি নতুন এআই। আমার নির্দিষ্ট কোনো বয়স নেই!";
+    // ৩. বয়স, জন্ম বা জন্মতারিখ সম্পর্কিত প্রশ্ন
+    else if (/(বয়স|age|জন্ম|born|birthday|কবে তৈরি)/.test(text)) {
+        reply = "আমার নির্দিষ্ট কোনো বয়স বা জন্মতারিখ নেই। কোডিংয়ের মাধ্যমে আমি সবসময় তরুণ ও সজীব!";
     }
-    // ৪. কেমন আছ
-    else if (text.includes("kemon") || text.includes("कैसा है") || text.includes("how are you") || text.includes("কেমন আছো") || text.includes("কেমন আছেন")) {
-        reply = "আমি আলহামদুলিল্লাহ খুব ভালো আছি! আপনি কেমন আছেন?";
-    } 
-    // ৫. সালাম বা শুভেচ্ছা
-    else if (text.includes("hi") || text.includes("hello") || text.includes("hey") || text.includes("হাই") || text.includes("হ্যালো") || text.includes("আসসালামু আলাইকুম") || text.includes("salam")) {
-        reply = "ওয়ালাইকুম আসসালাম! বলুন, আপনাকে কীভাবে সাহায্য করতে পারি?";
-    } 
-    // ৬. কেমন চলছে / কী করো
-    else if (text.includes("ki koro") || text.includes("কী করো") || text.includes("what are you doing")) {
-        reply = "এই তো আপনার সাথে কথা বলছি এবং আপনার মেসেজ নিয়ে ভাবছি!";
+    // ৪. বাসস্থান, দেশ বা লোকেশন সম্পর্কিত প্রশ্ন
+    else if (/(বাড়ি|home|where|location|কোথায়|দেশ|country)/.test(text))  {
+        reply = "আমি ইন্টারনেটের দুনিয়ায় এবং আপনার এই গিটহাব প্রজেক্টের ভেতরে বসবাস করি।";
     }
-    // ৭. ধন্যবাদ বা বিদায়
-    else if (text.includes("thank") || text.includes("ধন্যবাদ") || text.includes("thanks")) {
-        reply = "ইউ আর ওয়েলকাম!";
-    } 
-    else if (text.includes("bye") || text.includes("বিদায়") || text.includes("allah hafiz") || text.includes("খোদা হাফেজ")) {
-        reply = "আল্লাহ হাফেজ! আবার কথা হবে।";
-    } 
-    // ৮. যদি কোনো সাধারণ শব্দ বা ছোট অক্ষর দেন (যেমন আগের স্ক্রিনশটে 'To', 'Ti' দেখা গেছে)
-    else if (text.length <= 3) {
-        reply = "বুঝেছি! আরও কিছু বলতে পারেন?";
+    // ৫. ভাষা বা কথা বলার ক্ষমতা সম্পর্কিত প্রশ্ন
+    else if (/(ভাষা|language|কথা|speak|talk|বক্তব্য)/.test(text)) {
+        reply = "আমি বাংলা, ইংরেজি, বাংলিশসহ পৃথিবীর যেকোনো ভাষায় আপনার সাথে সাবলীলভাবে কথা বলতে পারি!";
     }
-    // ৯. একদম অজানা কিছু হলে সাধারণ একটি ছোট উত্তর
+    // ৬. কেমন আছ বা শরীর কেমন সম্পর্কিত প্রশ্ন
+    else if (/(কেমন|how|অবস্থা|kemon|achho|ভালো|good)/.test(text)) {
+        reply = "আমি আলহামদুলিল্লাহ বেশ চমৎকার আছি! আপনার দিনকাল কেমন যাচ্ছে বলুন?";
+    } 
+    // ৭. সালাম বা শুভেচ্ছা সম্পর্কিত প্রশ্ন
+    else if (/(hi|hello|hey|হাই|হ্যালো|salam|সালাম|আসসালামু)/.test(text)) {
+        reply = "ওয়ালাইকুম আসসালাম! বলুন, আজ আপনাকে কীভাবে সাহায্য করতে পারি?";
+    } 
+    // ৮. কাজ বা কি করছ সম্পর্কিত প্রশ্ন
+    else if (/(কাজ|ki koro|doing|help|সাহায্য|করছ)/.test(text)) {
+        reply = "আমি আপনার সাথে আড্ডা দিতে পারি, বিভিন্ন প্রশ্নের উত্তর দিতে পারি এবং আপনার মেসেজগুলো সুরক্ষিত রাখতে পারি।";
+    }
+    // ৯. ধন্যবাদ বা প্রশংসা সম্পর্কিত প্রশ্ন
+    else if (/(thank|ধন্যবাদ|thanks|gjob|osadharon|good|চমৎকার|দারুণ)/.test(text)) {
+        reply = "অনেক ধন্যবাদ! আপনার সাথে কথা বলে আমারও খুব ভালো লাগছে।";
+    } 
+    // ১০. বিদায় সম্পর্কিত প্রশ্ন
+    else if (/(bye|বিদায়|allah hafiz|খোদা হাফেজ|tata|goodbye)/.test(text)) {
+        reply = "আল্লাহ হাফেজ! আবার খুব শীঘ্রই কথা হবে। ভালো থাকবেন!";
+    } 
+    // ১১. ইউনিভার্সাল ব্যাকআপ (যদি এর বাইরেও একদম নতুন কিছু জিজ্ঞেস করা হয়)
     else {
-        reply = "আপনার এই কথাটি এই মুহূর্তে আমার ডেটাবেজে নেই, তবে আমি এটি শেখার চেষ্টা করব!";
+        reply = `আপনার এই চমৎকার কথাটি বা প্রশ্নটি ("${userText}") আমি নোট করে নিলাম। আমার নিজের সম্পর্কে বা অন্য যেকোনো বিষয়ে আপনি আরও হাজার রকম প্রশ্ন করতে পারেন!`;
     }
 
     displayMessage(reply, "bot");
     saveMessage(reply, "bot");
 }
 
-// মেসেজ সেভ করে রাখার ফাংশন
 function saveMessage(text, sender) {
     let messages = JSON.parse(localStorage.getItem("chatMessages")) || [];
     messages.push({ text, sender });
-    localStorage.setItem("JSON.stringify(messages)", JSON.stringify(messages)); // safe format
     localStorage.setItem("chatMessages", JSON.stringify(messages));
 }
 
-// আগে সেভ হওয়া মেসেজ লোড করা
 function loadMessages() {
     let messages = JSON.parse(localStorage.getItem("chatMessages")) || [];
     messages.forEach(msg => displayMessage(msg.text, msg.sender));
-}
+            }
