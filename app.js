@@ -1,8 +1,8 @@
 // পেজ লোড হলে সেভ থাকা মেসেজগুলো দেখানো
 document.addEventListener("DOMContentLoaded", loadMessages);
 
-function sendMessage() {
-    let input = document.getElementById("messageInput");
+function sendMsg() {
+    let input = document.getElementById("msgInput");
     let messageText = input.value.trim();
     
     if (messageText !== "") {
@@ -55,4 +55,4 @@ function saveMessage(text, sender) {
 function loadMessages() {
     let messages = JSON.parse(localStorage.getItem("chatMessages")) || [];
     messages.forEach(msg => displayMessage(msg.text, msg.sender));
-      }
+}
