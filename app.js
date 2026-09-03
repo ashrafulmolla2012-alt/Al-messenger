@@ -24,14 +24,13 @@ function displayMessage(text, sender) {
     chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-// আনলিমিটেড উত্তর পাওয়ার জন্য জেমিনি এপিআই কানেকশন
+// জেমিনি এপিআই কানেকশন
 async function getAIResponse(userText) {
-    // আপনার এপিআই কি এখানে বসানো আছে
     const apiKey = "AQ.Ab8RN6L84sePTDwZsYzJXX50RAFqbgYAwHRafKPgCnVoKOE0eQ"; 
     
+    // আপডেট ও সঠিক জেমিনি মডেল এন্ডপ পয়েন্ট
     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
-    // এআইকে বলে দেওয়া যে তার পরিচয় কী এবং কে তাকে বানিয়েছে
     const prompt = `You are AL Messenger AI, a smart assistant created by Ashraful Molla (আশরাফুল মোল্লা). Answer this user query naturally in Bengali/English: ${userText}`;
 
     try {
@@ -43,11 +42,15 @@ async function getAIResponse(userText) {
             })
         });
 
-        let data = await response.json();
-        let botReply = data.candidates[0].content.parts[0].text;
-
-        displayMessage(botReply, "bot");
-        saveMessage(botReply, "bot");
+        let data = v = await response.json();
+        
+        if (data.candidates && data.candidates[0].content.parts[0].text) {
+            let botReply = data.candidates[0].content.parts[0].text;
+            displayMessage(botReply, "bot");
+            saveMessage(botReply, "bot");
+        } else {
+            displayMessage("দুঃখিত, সঠিক উত্তর পাওয়া যায়নি। আবার চেষ্টা করুন।", "bot");
+        }
 
     } catch (error) {
         displayMessage("দুঃখিত, এই মুহূর্তে উত্তর দিতে সমস্যা হচ্ছে। ইন্টারনেট কানেকশন চেক করুন।", "bot");
@@ -71,5 +74,5 @@ function loadMessages() {
 function clearChat() {
     localStorage.removeItem("chatMessages");
     document.getElementById("chatBox").innerHTML = "";
-        }
-                                          
+    }
+                            
