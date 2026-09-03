@@ -1,0 +1,15 @@
+{
+  "short_name": "AL Chat",
+  "name": "AL Messenger",
+  "icons": [
+    {
+      "src": "icon.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": "./index.html",
+  "background_color": "#075e54",
+  "theme_color": "#075e54",
+  "display": "standalone"
+}
