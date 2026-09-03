@@ -22,7 +22,7 @@ function displayMessage(text, sender) {
 }
 
 async function getAIResponse(userText) {
-    const apiKey = "AQ.Ab8RN6KG1RYWlUJkVn8LSBZ8HJ2V9X3FdUcMyDpSM8S3RnJIEA"; 
+    const apiKey = "AQ.Ab8RN6JL65yvvNUgw97oXmTZU8XspVcnms-T05_eB8adeqHe9w"; 
     
     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
@@ -66,4 +66,5 @@ function loadMessages() {
 function clearChat() {
     localStorage.removeItem("chatMessages");
     document.getElementById("chatBox").innerHTML = "";
-}
+                                            }
+                                                                                                                                                              
