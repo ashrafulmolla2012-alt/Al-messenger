@@ -24,14 +24,18 @@ function displayMessage(text, sender) {
 async function getAIResponse(userText) {
     const apiKey = "AQ.Ab8RN6JL65yvvNUgw97oXmTZU8XspVcnms-T05_eB8adeqHe9w"; 
     
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+    // নতুন AQ কি-র জন্য অথরাইজেশন হেডার সহ সঠিক এন্ডপয়েন্ট
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent`;
 
     const prompt = `You are AL Messenger AI, a smart assistant created by Ashraful Molla (আশরাফুল মোল্লা). Answer this user query naturally in Bengali/English: ${userText}`;
 
     try {
         let response = await fetch(apiUrl, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { 
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${apiKey}`
+            },
             body: JSON.stringify({
                 contents: [{ parts: [{ text: prompt }] }]
             })
@@ -44,10 +48,12 @@ async function getAIResponse(userText) {
             displayMessage(botReply, "bot");
             saveMessage(botReply, "bot");
         } else {
+            console.error("API Error Response:", data);
             displayMessage("দুঃখিত, সঠিক উত্তর পাওয়া যায়নি। আবার চেষ্টা করুন।", "bot");
         }
 
     } catch (error) {
+        console.error("Fetch Error:", error);
         displayMessage("দুঃখিত, এই মুহূর্তে উত্তর দিতে সমস্যা হচ্ছে। ইন্টারনেট কানেকশন চেক করুন।", "bot");
     }
 }
@@ -66,5 +72,5 @@ function loadMessages() {
 function clearChat() {
     localStorage.removeItem("chatMessages");
     document.getElementById("chatBox").innerHTML = "";
-                                            }
-                                                                                                                                                              
+            }
+                
